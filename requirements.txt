@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+pandas
+numpy
+scipy
+scikit-learn
+langchain
+langchain-core
+langchain-google-genai
+langchain-experimental
+python-multipart
+pydantic
+pydantic-settings
