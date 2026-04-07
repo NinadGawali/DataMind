@@ -3,12 +3,13 @@ from state.session_store import session_store
 from services.eda_service import EDAService
 from services.visualization_service import VisualizationService
 from agents.insight_agent import InsightAgent
-from schemas.request_models import VisualizeRequest, InsightRequest
+from schemas.request_models import VisualizeRequest, InsightRequest, InsightChatRequest
 from schemas.response_models import (
     EDASummaryResponse, 
     EDACorrelationResponse, 
     VisualizeResponse, 
-    InsightResponse
+    InsightResponse,
+    InsightChatResponse,
 )
 
 router = APIRouter()
@@ -55,7 +56,18 @@ async def visualize(request: VisualizeRequest):
 async def get_insight(request: InsightRequest):
     df = get_df_or_404(request.session_id)
     try:
-        insight = insight_agent.generate_insight(df, request.query or "")
+        insight = insight_agent.generate_insight(df, request.query or "Give me key statistical insights.")
         return InsightResponse(data={"insight": insight})
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/insight/chat", response_model=InsightChatResponse)
+async def insight_chat(request: InsightChatRequest):
+    df = get_df_or_404(request.session_id)
+    try:
+        history = [{"role": m.role, "content": m.content} for m in request.history]
+        response_text = insight_agent.chat(df=df, user_query=request.query, history=history)
+        return InsightChatResponse(data={"reply": response_text})
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

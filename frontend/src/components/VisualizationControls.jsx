@@ -6,7 +6,13 @@ const chartTypes = [
   { id: 'scatter', label: 'Scatter Plot' },
   { id: 'boxplot', label: 'Box Plot' },
   { id: 'countplot', label: 'Count Plot' },
+  { id: 'line', label: 'Line Chart' },
+  { id: 'area', label: 'Area Chart' },
+  { id: 'pie', label: 'Pie Chart' },
 ];
+
+const requiresY = new Set(['scatter', 'line', 'area']);
+const supportsOptionalY = new Set(['pie']);
 
 export default function VisualizationControls({ columns, onVisualize }) {
   const [config, setConfig] = useState({
@@ -77,7 +83,7 @@ export default function VisualizationControls({ columns, onVisualize }) {
           </select>
         </div>
 
-        {config.type === 'scatter' && (
+        {(requiresY.has(config.type) || supportsOptionalY.has(config.type)) && (
           <div>
             <label className="block text-sm text-gray-400 mb-1">Y-Axis</label>
             <select
@@ -85,9 +91,9 @@ export default function VisualizationControls({ columns, onVisualize }) {
               value={config.y}
               onChange={handleChange}
               className="w-full bg-gray-800 border border-gray-700 rounded p-2 text-white focus:outline-none focus:border-blue-500"
-              required={config.type === 'scatter'}
+              required={requiresY.has(config.type)}
             >
-              <option value="">None</option>
+              <option value="">{supportsOptionalY.has(config.type) ? 'Optional metric...' : 'Select column...'}</option>
               {columns.map((c) => (
                 <option key={c} value={c}>{c}</option>
               ))}

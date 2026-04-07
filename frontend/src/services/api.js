@@ -32,3 +32,8 @@ export const getInsight = async (config) => {
   const response = await api.post('/eda/insight', config);
   return response.data;
 };
+
+export const chatInsight = async (payload) => {
+  const response = await api.post('/eda/insight/chat', payload);
+  return response.data;
+};

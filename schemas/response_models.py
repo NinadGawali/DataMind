@@ -27,11 +27,16 @@ class ChartData(BaseModel):
     x: List[Any]
     y: Optional[List[Any]] = None
     series: Optional[List[Any]] = None
+    points: Optional[List[Dict[str, Any]]] = None
+    matrix: Optional[List[Dict[str, Any]]] = None
+    labels: Optional[List[Any]] = None
 
 class VisualizeResponseData(BaseModel):
     type: str
     chart_data: ChartData
     meta: Dict[str, Any]
+    math_summary: Dict[str, Any]
+    ai_insight: str
 
 class VisualizeResponse(BaseModel):
     status: str = "success"
@@ -40,3 +45,8 @@ class VisualizeResponse(BaseModel):
 class InsightResponse(BaseModel):
     status: str = "success"
     data: Dict[str, str]
+
+
+class InsightChatResponse(BaseModel):
+    status: str = "success"
+    data: Dict[str, Any]

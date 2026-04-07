@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
-export default function UploadCard({ onUpload }) {
+export default function UploadCard({ onUpload, isLoading }) {
   const [dragActive, setDragActive] = useState(false);
   const [file, setFile] = useState(null);
 
@@ -21,8 +21,10 @@ export default function UploadCard({ onUpload }) {
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       const droppedFile = e.dataTransfer.files[0];
-      setFile(droppedFile);
-      onUpload(droppedFile);
+      if (!isLoading) {
+        setFile(droppedFile);
+        onUpload(droppedFile);
+      }
     }
   };
 
@@ -30,8 +32,10 @@ export default function UploadCard({ onUpload }) {
     e.preventDefault();
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
-      setFile(selectedFile);
-      onUpload(selectedFile);
+      if (!isLoading) {
+        setFile(selectedFile);
+        onUpload(selectedFile);
+      }
     }
   };
 
@@ -53,11 +57,14 @@ export default function UploadCard({ onUpload }) {
           type="file" 
           accept=".csv" 
           onChange={handleChange} 
+          disabled={isLoading}
           className="hidden" 
           id="file-upload" 
         />
-        <label htmlFor="file-upload" className="cursor-pointer block">
-          {file ? (
+        <label htmlFor="file-upload" className={`cursor-pointer block ${isLoading ? 'pointer-events-none opacity-70' : ''}`}>
+          {isLoading ? (
+            <p className="text-blue-400 font-medium">Uploading...</p>
+          ) : file ? (
             <p className="text-blue-400 font-medium">{file.name}</p>
           ) : (
             <p className="text-gray-400">Drag & drop your CSV file here, or click to select</p>
