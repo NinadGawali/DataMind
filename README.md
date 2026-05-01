@@ -3,6 +3,9 @@
 ## Features
 - **Insight Agent**: Analyzes datasets and provides insights using Gemini 2.5 Flash.
 - **Data Visualization**: Generates visualizations based on insights.
+- **Live Dataset View**: View the current in-session dataset live after agent changes.
+- **CSV Export**: Download the latest transformed dataset directly from the app.
+- **Feature Engineering Agent**: Encodes categorical or selected columns with AI-guided strategy recommendations.
 - **Interactive Dashboard**: A user-friendly interface to explore insights and visualizations.
 
 ## Installation

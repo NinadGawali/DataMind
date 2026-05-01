@@ -50,3 +50,8 @@ class InsightResponse(BaseModel):
 class InsightChatResponse(BaseModel):
     status: str = "success"
     data: Dict[str, Any]
+
+
+class DataQualityAgentResponse(BaseModel):
+    status: str = "success"
+    data: Dict[str, Any]

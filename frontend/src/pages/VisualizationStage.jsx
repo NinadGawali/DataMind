@@ -65,10 +65,10 @@ export default function VisualizationStage() {
 
         <button
           type="button"
-          onClick={() => navigate('/insights')}
+          onClick={() => navigate('/data-quality')}
           className="rounded-xl px-5 py-3 font-semibold bg-emerald-400 text-slate-900 hover:bg-emerald-300 transition"
         >
-          Continue To Insight Chat
+          Continue To Data Quality Analysis
         </button>
       </div>
     </div>

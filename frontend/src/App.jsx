@@ -6,6 +6,10 @@ import StageLayout from './components/StageLayout';
 import { DataSessionProvider } from './context/DataSessionContext';
 import UploadStage from './pages/UploadStage';
 import VisualizationStage from './pages/VisualizationStage';
+import DataQualityStage from './pages/DataQualityStage';
+import FeatureEngineeringStage from './pages/FeatureEngineeringStage';
+import DatasetLiveStage from './pages/DatasetLiveStage';
+import ModelTrainingStage from './pages/ModelTrainingStage';
 import InsightsStage from './pages/InsightsStage';
 
 function App() {
@@ -15,6 +19,10 @@ function App() {
         <Routes>
           <Route path="/" element={<UploadStage />} />
           <Route path="/visualizations" element={<VisualizationStage />} />
+          <Route path="/data-quality" element={<DataQualityStage />} />
+          <Route path="/feature-engineering" element={<FeatureEngineeringStage />} />
+          <Route path="/dataset-live" element={<DatasetLiveStage />} />
+          <Route path="/model-training" element={<ModelTrainingStage />} />
           <Route path="/insights" element={<InsightsStage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

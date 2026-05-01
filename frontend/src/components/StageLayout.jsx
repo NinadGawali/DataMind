@@ -2,9 +2,13 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const stages = [
-  { path: '/', label: 'Upload' },
-  { path: '/visualizations', label: 'Visualizations' },
-  { path: '/insights', label: 'Insights' },
+  { path: '/', label: 'Upload', showIndex: true },
+  { path: '/visualizations', label: 'Visualizations', showIndex: true },
+  { path: '/data-quality', label: 'Data Quality', showIndex: true },
+  { path: '/feature-engineering', label: 'Feature Engineering', showIndex: true },
+  { path: '/dataset-live', label: 'Dataset Live', showIndex: false },
+  { path: '/model-training', label: 'Model Training', showIndex: true },
+  { path: '/insights', label: 'Insights', showIndex: true },
 ];
 
 export default function StageLayout({ children }) {
@@ -30,7 +34,7 @@ export default function StageLayout({ children }) {
                   to={stage.path}
                   className={`stage-pill ${isActive ? 'stage-pill-active' : 'stage-pill-idle'}`}
                 >
-                  <span className="text-slate-400 text-xs mr-2">0{index + 1}</span>
+                  {stage.showIndex !== false && <span className="text-slate-400 text-xs mr-2">0{index + 1}</span>}
                   {stage.label}
                 </Link>
               );

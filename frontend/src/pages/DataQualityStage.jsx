@@ -2,9 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 import { useDataSession } from '../context/DataSessionContext';
-import InsightChatbot from '../components/InsightChatbot';
+import DataQualityPanel from '../components/DataQualityPanel';
 
-export default function InsightsStage() {
+export default function DataQualityStage() {
   const navigate = useNavigate();
   const { sessionId, datasetInfo } = useDataSession();
 
@@ -31,16 +31,25 @@ export default function InsightsStage() {
         animate={{ opacity: 1, x: 0 }}
         className="lg:col-span-4 glass p-6"
       >
-        <p className="text-xs uppercase tracking-[0.24em] text-emerald-300">Stage 04</p>
-        <h2 className="text-2xl font-extrabold mt-2">Interactive Insights Agent</h2>
+        <p className="text-xs uppercase tracking-[0.24em] text-amber-300">Stage 03</p>
+        <h2 className="text-2xl font-extrabold mt-2">Data Quality Intelligence</h2>
         <p className="text-slate-300 mt-3">
-          Ask complex analytical questions. The assistant can choose to execute dataframe code through a LangGraph
-          workflow to compute precise answers from your data.
+          Analyze null values and outliers, then apply cleanup actions directly on the active dataframe session.
+          This stage focuses on data hygiene before feature encoding and modeling.
         </p>
       </motion.div>
 
       <div className="lg:col-span-8">
-        <InsightChatbot sessionId={sessionId} />
+        <DataQualityPanel sessionId={sessionId} />
+        <div className="mt-5 flex justify-end">
+          <button
+            type="button"
+            onClick={() => navigate('/feature-engineering')}
+            className="rounded-xl px-5 py-3 font-semibold bg-emerald-400 text-slate-900 hover:bg-emerald-300 transition"
+          >
+            Continue to Feature Engineering
+          </button>
+        </div>
       </div>
     </div>
   );
